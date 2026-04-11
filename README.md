@@ -91,6 +91,33 @@ Evaluated across two main tracks (Typhoon vs Base Models):
 
 ---
 
+## 🎙️ About TitaNet-L (V1) for Speaker Diarization
+
+**TitaNet-L (Large)** is a 25.3M parameter speaker recognition model utilized by this project to handle speaker identification and verification. It focuses on far-field, text-independent recognition, converting varied speech into fixed-length **speaker embeddings** (192-dimension t-vectors) to identify identities based strictly on *how* a person sounds.
+
+- **Architecture:** Employs 1D depth-wise separable convolutions with Squeeze-and-Excitation (SE) layers, processed via the **NVIDIA NeMo toolkit**.
+- **Training Overview:** Pre-trained on a composite dataset of several thousand hours of speech (including VoxCeleb 1 & 2, Fisher, Switchboard, and LibriSpeech).
+- **Performance:** Achieves an impressive **0.68% EER** on the VoxCeleb clean test trial. It operates with high accuracy in diarization tracking, achieving a ~1.73 error rate on AMI MixHeadset scenarios without fine-tuning.
+- **Limitations:** Optimized for general and telephonic speech. Extremely distinct local noise environments may require fine-tuning.
+
+### 🛠️ Usage Quick-Start
+*(Ensure your inputs are 16KHz Mono-channel `.wav` files)*
+
+```python
+import nemo.collections.asr as nemo_asr
+
+# Load the pretrained TitaNet-L
+speaker_model = nemo_asr.models.EncDecSpeakerLabelModel.from_pretrained('titanet_large')
+
+# 1. Extraction: Get the unique speaker embedding from an audio snippet
+embs = speaker_model.get_embedding('audio_path.wav')
+
+# 2. Verification: Returns True if the two files are spoken by the exact same person
+decision = speaker_model.verify_speakers('audio_1.wav', 'audio_2.wav')
+```
+
+---
+
 ## 💻 Demos & Usage Examples of Typhoon-ASR
 
 We provide interactive Jupyter notebooks inside the `demo_typhoon_asr/` directory to help you test the models:
