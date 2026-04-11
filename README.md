@@ -91,7 +91,7 @@ Evaluated across two main tracks (Typhoon vs Base Models):
 
 ---
 
-## 💻 Demos & Usage Examples
+## 💻 Demos & Usage Examples of Typhoon-ASR
 
 We provide interactive Jupyter notebooks inside the `demo_typhoon_asr/` directory to help you test the models:
 
@@ -113,3 +113,18 @@ This notebook showcases the **115M Fast Conformer-Transducer** designed for zero
 
 ---
 
+## 🗣️ Speaker Diarization Integrations
+
+The `Speaker_Diarlization/` directory contains workflows that combine **TitaNet** (from the NVIDIA NeMo toolkit) for identifying *who* is speaking, with **Typhoon ASR** for transcribing *what* is spoken. 
+
+### 1. Offline Pipeline (`Speaker_Diarlization/offline/`)
+Processes pre-recorded audio utilizing NeMo Manifests to securely segment and transcribe:
+- **`TitaNet_L_Demo.ipynb`**: Explores the `TitaNet-Large` architecture standalone, handling audio preparation (16kHz Mono WAV) and Manifest generation.
+- **`TitaNet_L_Typhoon_ASR.ipynb`**: Combines TitaNet mapped timelines with Typhoon ASR (Offline), generating highly readable conversation logs seamlessly categorized by speaker.
+
+### 2. Real-time Streaming Pipeline (`Speaker_Diarlization/real_time/`)
+Designed for low-latency live audio environments via **LiveKit**:
+- **`Speaker_Diarlization.ipynb`**: Demonstrates robust LiveKit connections, tracking live network audio events, continuous TitaNet identity mapping, and Typhoon ASR transcribing. It implements strict **Smoothing Logic** (e.g., preventing false "0-1-0" speaker flickering within short intervals like 0.8 seconds) to maintain transcript sanity.
+- **`Speaker_Diarlization_example3speaker.ipynb`**: Optimized specifically for handling dynamic multi-speaker scenarios (e.g., three or more active speakers) with tuned classification and buffering thresholds (`threshold = 0.15`).
+
+---
