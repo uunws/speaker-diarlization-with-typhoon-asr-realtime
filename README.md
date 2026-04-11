@@ -83,23 +83,6 @@ Evaluated across two main tracks (Typhoon vs Base Models):
 
 ---
 
-## ⚡ Demo Performance (Real-time Showcase)
-
-Based on actual testing, the model achieves impressive real-time metrics:
-- **Audio Duration:** 212.21 seconds
-- **Processing Time:** 6.41 seconds
-- **Real-time Factor (RTF):** `0.03x` (processed in just 3% of the actual playback time!)
-- **Status:** **Real-time capable (No noticeable delays)**
-
-### Decoding Configuration
-- **Model Type:** RNN-T
-- **Decoding Strategy:** Greedy
-- **Loss Function:** `warprnnt_numba`
-- **CUDA Graph:** Enabled (`True`)
-- **Temperature:** 1.0
-
----
-
 ## 🚧 Limitations & Future Work
 
 - **Formatting Constraints:** Due to strict verbatim transcription, the output is raw text (e.g., writing "สิบ" instead of "10"). This requires an Inverse Text Normalization (ITN) module downstream for readability.
@@ -108,11 +91,3 @@ Based on actual testing, the model achieves impressive real-time metrics:
 
 ---
 
-## 🎙️ Integration Ideas (LiveKit AI Agent)
-
-You can build seamless low-latency real-time voice applications using **LiveKit** (similar to a Spotify Jam or live conversation agent).
-- **WebRTC:** Low-latency peer-to-peer networking API.
-- **WebAudio API:** Processes audio and converts it safely into media tracks directly in the browser.
-- **LiveKit Server:** Routes your WebRTC tracks out to listeners easily.
-
-**Typical Flow:** User Speaks -> WebBrowser (WebRTC/WebAudio) -> LiveKit -> **Typhoon ASR Real-time** -> LLM -> TTS -> LiveKit -> End Users.
