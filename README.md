@@ -91,3 +91,25 @@ Evaluated across two main tracks (Typhoon vs Base Models):
 
 ---
 
+## 💻 Demos & Usage Examples
+
+We provide interactive Jupyter notebooks inside the `demo_typhoon_asr/` directory to help you test the models:
+
+### 1. Offline Transcription Demo (`demo_typhoon_asr_offline.ipynb`)
+This notebook showcases the **Whisper-based** Typhoon ASR (Offline).
+- **Best Use Case:** When highest accuracy is required (CER of 6.32%) and latency/delay is not a constraint.
+- **Sample Output Characteristic:** Generates highly conversational, punctuated, and structured text. For example, it effortlessly captures contextual nuances and natural breaks from speech.
+
+### 2. Real-time Streaming Demo (`demo_typhoon_asr_real_time.ipynb`)
+This notebook showcases the **115M Fast Conformer-Transducer** designed for zero-delay streaming.
+- **Demo Performance:** Based on testing, it can process a **212.21 seconds** audio sample in just **6.41 seconds**. This gives an impressive Real-time Factor (RTF) of `0.03x`—processing in just 3% of the actual playback time.
+- **Decoding Configuration Used:**
+  - **Type:** RNN-T
+  - **Decoding Strategy:** Greedy
+  - **Loss Function:** `warprnnt_numba` (A highly optimized Warp-RNN-T loss port utilizing Numba JIT to compile Python to GPU-native machine code instantly).
+  - **CUDA Graph:** Enabled (`True`) for aggressive hardware acceleration.
+  - **Temperature:** 1.0
+- **Sample Output Characteristic:** Prioritizes extreme speed and verbatim transcription. It transcribes precisely what it hears (e.g., writing Thai characters corresponding strictly to the spoken phonetics, making it ideal for immediate processing pipelines).
+
+---
+
